@@ -55,7 +55,7 @@ export default function TilesContainer(props) {
                 {tiles}
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-                <div style={{ padding: "20px", background: "#e76f51", cursor: "pointer" }} onClick={() => Randomize()}>Nytt spel</div>
+                <div style={{ padding: "20px", background: "#e76f51", cursor: "pointer", borderRadius: "5px", color: "white" }} onClick={() => Randomize()}>Nytt spel</div>
             </div>
         </>
     )
