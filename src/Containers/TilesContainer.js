@@ -3,8 +3,9 @@ import TilesComponent from '../Components/TileComponent'
 
 export default function TilesContainer(props) {
 
-    const { numberOfColumns, numberOfTiles } = props;
-    const noc = () => {
+    const { numberOfColumns, numberOfRows } = props;
+
+    const Noc = () => {
         let nocString = "";
         for (var i = 0; i < numberOfColumns; i++) {
             nocString += " auto";
@@ -12,33 +13,49 @@ export default function TilesContainer(props) {
         return nocString;
     }
 
+    const ShuffleArray = (a) => {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
+    }
+
+    const Randomize = () => {
+        setTiles(PrepareTiles);
+    }
+
     const containerStyle = {
         display: "grid",
-        gridTemplateColumns: noc()
+        gridTemplateColumns: Noc()
     };
 
-    function HandleClick(tile) {
+    const HandleClick = (tile) => {
         console.log(tile);
     }
 
     const PrepareTiles = () => {
         let tiles = [];
 
-        for (var i = 0; i < numberOfTiles; i++) {
-            tiles.push(<TilesComponent number={1} key={1} clickHandler={HandleClick} />)
+        for (var i = 0; i < numberOfColumns * numberOfRows; i++) {
+            tiles.push(<TilesComponent number={i} key={i} clickHandler={HandleClick} />)
         }
 
-        return tiles;
+        return ShuffleArray(tiles);
     }
 
-    const [inputValue, setInputValue] = useState(1);
-    const [boolShit, setBoolShit] = useState(false);
     const [tiles, setTiles] = useState(PrepareTiles);
 
     return (
         <>
             <div className="grid-container" style={containerStyle}>
                 {tiles}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+                <div style={{ padding: "20px", background: "#e76f51", cursor: "pointer" }} onClick={() => Randomize()}>Nytt spel</div>
             </div>
         </>
     )

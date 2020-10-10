@@ -4,7 +4,7 @@ import Game from './Game'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ background: "#264653", padding: "50px" }}>
       <Game />
     </div>
   );
