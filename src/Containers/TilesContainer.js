@@ -39,14 +39,14 @@ export default function TilesContainer(props) {
 
     const Noc = () => {
         let nocString = "";
-        for (var i = 0; i < numberOfColumns; i++) {
+        for (let i = 0; i < numberOfColumns; i++) {
             nocString += " auto";
         }
         return nocString;
     }
 
     const ShuffleArray = (a) => {
-        var j, x, i;
+        let j, x, i;
         for (i = a.length - 1; i > 0; i--) {
             j = Math.floor(Math.random() * (i + 1));
             x = a[i];
@@ -66,7 +66,7 @@ export default function TilesContainer(props) {
     };
 
     const findItem = (inp) => {
-        for (var i = 0; i < tiles.length; i++) {
+        for (let i = 0; i < tiles.length; i++) {
             if (tiles[i] === inp) {
                 return i;
             }
@@ -74,8 +74,8 @@ export default function TilesContainer(props) {
     };
 
     const checkLocation = (empty, clicked) => {
-        var all = numberOfColumns * numberOfRows;
-        var each = all / numberOfRows;
+        let all = numberOfColumns * numberOfRows;
+        let each = all / numberOfRows;
 
         if (tiles[empty + 1] === tiles[clicked]) {
             // Check right
@@ -109,11 +109,11 @@ export default function TilesContainer(props) {
     }
 
     const HandleClick = (tile) => {
-        var indexOfEmpty = findItem(0);
-        var indexOfClicked = findItem(tile);
+        let indexOfEmpty = findItem(0);
+        let indexOfClicked = findItem(tile);
 
         if (checkLocation(indexOfEmpty, indexOfClicked)) {
-            var newArray = tiles.filter(x => x !== tile && x !== 0);
+            let newArray = tiles.filter(x => x !== tile && x !== 0);
 
             if (indexOfEmpty > indexOfClicked) {
                 indexOfEmpty -= 1;
@@ -123,15 +123,35 @@ export default function TilesContainer(props) {
             newArray.splice(indexOfClicked, 0, 0);
 
             changeTiles(newArray);
+            checkWin(newArray);
+
         }
     }
 
     const PrepareTiles = () => {
         let tiles = [];
-        for (var i = 0; i < numberOfColumns * numberOfRows; i++) {
+        for (let i = 0; i < numberOfColumns * numberOfRows; i++) {
             tiles.push(i)
         }
         return ShuffleArray(tiles);
+    }
+
+    const checkWin = (array) => {
+        const arrayWithourZero = [];
+        const mySearchValue = 0;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] !== mySearchValue) {
+                arrayWithourZero.push(array[i])
+            }
+        }
+
+        let isAscending = a => a.slice(1)
+            .map((e, i) => e > a[i])
+            .every(x => x);
+
+        if (isAscending(arrayWithourZero)) {
+            alert('Du har vunnit');
+        }
     }
 
     const [tiles, changeTiles] = useState(PrepareTiles);
