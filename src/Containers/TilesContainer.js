@@ -23,6 +23,20 @@ export default function TilesContainer(props) {
         cursor: "pointer"
     };
 
+    const buttonContainerStyle = {
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "20px"
+    };
+
+    const buttonStyle = {
+        padding: "20px",
+        background: "#e76f51",
+        cursor: "pointer",
+        borderRadius: "5px",
+        color: "white"
+    }
+
     const Noc = () => {
         let nocString = "";
         for (var i = 0; i < numberOfColumns; i++) {
@@ -128,11 +142,11 @@ export default function TilesContainer(props) {
                 {tiles.map((item, index) => (
                     item === 0 ? <div id={item} style={tileStyleHidden} key={item} onClick={() => HandleClick(item)}>{item}</div>
                         :
-                        <div id={item} className="Tile fade-in" style={tileStyle} key={item} onClick={() => HandleClick(item)}>{item}</div>
+                        <div id={item} style={tileStyle} key={item} onClick={() => HandleClick(item)}>{item}</div>
                 ))}
             </div>
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-                <div style={{ padding: "20px", background: "#e76f51", cursor: "pointer", borderRadius: "5px", color: "white" }} onClick={() => Randomize()}>Nytt spel</div>
+            <div style={buttonContainerStyle}>
+                <div style={buttonStyle} onClick={() => Randomize()}>Nytt spel</div>
             </div>
         </>
     )
