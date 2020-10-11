@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TilesContainer from './Containers/TilesContainer';
 
 export default function Game() {

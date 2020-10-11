@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export default function TilesContainer(props) {
 
@@ -53,7 +53,7 @@ export default function TilesContainer(props) {
 
     const findItem = (inp) => {
         for (var i = 0; i < tiles.length; i++) {
-            if (tiles[i] == inp) {
+            if (tiles[i] === inp) {
                 return i;
             }
         }
@@ -63,33 +63,29 @@ export default function TilesContainer(props) {
         var all = numberOfColumns * numberOfRows;
         var each = all / numberOfRows;
 
-        if (tiles[empty + 1] == tiles[clicked]) {
+        if (tiles[empty + 1] === tiles[clicked]) {
             // Check right
-            if ((empty + 1) % each == 0) {
-                console.log("Right option not available");
+            if ((empty + 1) % each === 0) {
                 return false;
             }
             return true;
         }
-        else if (tiles[empty - 1] == tiles[clicked]) {
+        else if (tiles[empty - 1] === tiles[clicked]) {
             //Check left
-            if (empty % each == 0) {
-                console.log("Left option not available");
+            if (empty % each === 0) {
                 return false;
             }
             return true;
         }
-        else if (tiles[empty + numberOfColumns] == tiles[clicked]) {
+        else if (tiles[empty + numberOfColumns] === tiles[clicked]) {
             if (empty > ((all - numberOfColumns) - 1)) {
-                console.log("Bottom option not available");
                 return false;
             }
             return true;
         }
-        else if (tiles[empty - numberOfColumns] == tiles[clicked]) {
+        else if (tiles[empty - numberOfColumns] === tiles[clicked]) {
             // Check top
             if (empty < numberOfColumns) {
-                console.log("Top option not available");
                 return false;
             }
             return true;
@@ -103,7 +99,7 @@ export default function TilesContainer(props) {
         var indexOfClicked = findItem(tile);
 
         if (checkLocation(indexOfEmpty, indexOfClicked)) {
-            var newArray = tiles.filter(x => x != tile && x != 0);
+            var newArray = tiles.filter(x => x !== tile && x !== 0);
 
             if (indexOfEmpty > indexOfClicked) {
                 indexOfEmpty -= 1;
@@ -125,13 +121,12 @@ export default function TilesContainer(props) {
     }
 
     const [tiles, changeTiles] = useState(PrepareTiles);
-    const [count, changeCount] = useState(0);
 
     return (
         <>
             <div className="grid-container" style={containerStyle}>
                 {tiles.map((item, index) => (
-                    item == 0 ? <div id={item} style={tileStyleHidden} key={item} onClick={() => HandleClick(item)}>{item}</div>
+                    item === 0 ? <div id={item} style={tileStyleHidden} key={item} onClick={() => HandleClick(item)}>{item}</div>
                         :
                         <div id={item} className="Tile fade-in" style={tileStyle} key={item} onClick={() => HandleClick(item)}>{item}</div>
                 ))}
