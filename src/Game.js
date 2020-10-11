@@ -3,7 +3,7 @@ import TilesContainer from './Containers/TilesContainer';
 
 export default function Game() {
 
-    const numberOfColumns = 4;
+    const numberOfColumns = 3;
     const numberOfRows = 4;
 
     return (
