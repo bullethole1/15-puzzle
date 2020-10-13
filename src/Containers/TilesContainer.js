@@ -106,8 +106,7 @@ export default function TilesContainer(props) {
         return ShuffleArray(tiles);
     }
 
-    const checkWinn = (fdsd) => {
-        let array = [1, 2, 3, 0];
+    const checkWinn = (array) => {
         let lastItemInArray;
         let newArray = [];
 
