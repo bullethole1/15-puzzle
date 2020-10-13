@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
+import TileComponent from "../Components/TileComponent";
 
 export default function TilesContainer(props) {
 
     const { numberOfColumns, numberOfRows } = props;
 
-    const tileStyleHidden = {
-        backgroundColor: "#f4a261",
-        textAlign: "center",
-        padding: "20px 0",
-        borderRadius: "5px",
-        margin: "2%",
-        visibility: "hidden",
-        cursor: "pointer"
-    };
+    // const tileStyleHidden = {
+    //     backgroundColor: "#f4a261",
+    //     textAlign: "center",
+    //     padding: "20px 0",
+    //     borderRadius: "5px",
+    //     margin: "2%",
+    //     visibility: "hidden",
+    //     cursor: "pointer"
+    // };
 
-    const tileStyle = {
-        backgroundColor: "#f4a261",
-        textAlign: "center",
-        padding: "20px 0",
-        borderRadius: "5px",
-        margin: "2%",
-        cursor: "pointer"
-    };
+    // const tileStyle = {
+    //     backgroundColor: "#f4a261",
+    //     textAlign: "center",
+    //     padding: "20px 0",
+    //     borderRadius: "5px",
+    //     margin: "2%",
+    //     cursor: "pointer"
+    // };
 
     const buttonContainerStyle = {
         display: "flex",
@@ -37,6 +38,11 @@ export default function TilesContainer(props) {
         color: "white"
     }
 
+    const GameCompleteStyle = {
+        margin: "20px 0 0 0"
+    }
+
+
     const Noc = () => {
         let nocString = "";
         for (let i = 0; i < numberOfColumns; i++) {
@@ -44,6 +50,12 @@ export default function TilesContainer(props) {
         }
         return nocString;
     }
+
+    const containerStyle = {
+        display: "grid",
+        gridTemplateColumns: Noc()
+    };
+
 
     const ShuffleArray = (a) => {
         let j, x, i;
@@ -57,13 +69,9 @@ export default function TilesContainer(props) {
     }
 
     const Randomize = () => {
+        setIsWinner(false);
         changeTiles(PrepareTiles);
     }
-
-    const containerStyle = {
-        display: "grid",
-        gridTemplateColumns: Noc()
-    };
 
     const findItem = (inp) => {
         for (let i = 0; i < tiles.length; i++) {
@@ -108,25 +116,24 @@ export default function TilesContainer(props) {
         return false;
     }
 
-    const HandleClick = (tile) => {
-        let indexOfEmpty = findItem(0);
-        let indexOfClicked = findItem(tile);
+    // const HandleClick = (tile) => {
+    //     let indexOfEmpty = findItem(0);
+    //     let indexOfClicked = findItem(tile);
 
-        if (checkLocation(indexOfEmpty, indexOfClicked)) {
-            let newArray = tiles.filter(x => x !== tile && x !== 0);
+    //     if (checkLocation(indexOfEmpty, indexOfClicked)) {
+    //         let newArray = tiles.filter(x => x !== tile && x !== 0);
 
-            if (indexOfEmpty > indexOfClicked) {
-                indexOfEmpty -= 1;
-            }
+    //         if (indexOfEmpty > indexOfClicked) {
+    //             indexOfEmpty -= 1;
+    //         }
 
-            newArray.splice(indexOfEmpty, 0, tile);
-            newArray.splice(indexOfClicked, 0, 0);
+    //         newArray.splice(indexOfEmpty, 0, tile);
+    //         newArray.splice(indexOfClicked, 0, 0);
+    //         changeTiles(newArray);
+    //         checkWin(newArray);
 
-            changeTiles(newArray);
-            checkWin(newArray);
-
-        }
-    }
+    //     }
+    // }
 
     const PrepareTiles = () => {
         let tiles = [];
@@ -136,38 +143,64 @@ export default function TilesContainer(props) {
         return ShuffleArray(tiles);
     }
 
-    const checkWin = (array) => {
-        const arrayWithourZero = [];
-        const mySearchValue = 0;
-        for (let i = 0; i < array.length; i++) {
-            if (array[i] !== mySearchValue) {
-                arrayWithourZero.push(array[i])
-            }
-        }
+    const checkWinn = (fdsd) => {
+        let array = [1, 2, 3, 0];
+        let lastItemInArray;
+        let newArray = [];
+
+        //Check if numbered tilöes are in descending order
 
         let isAscending = a => a.slice(1)
             .map((e, i) => e > a[i])
             .every(x => x);
 
-        if (isAscending(arrayWithourZero)) {
-            alert('Du har vunnit');
+
+        for (let i = 0; i < array.length; i++) {
+            newArray.push(array[i]);
+        }
+
+        //find last element in array
+        array.forEach(function (item, i) {
+            if (i === array.length - 1) {
+                lastItemInArray = item;
+            }
+        });
+
+        if (lastItemInArray === 0) {
+            newArray.pop();
+        }
+
+        if (isAscending(newArray)) {
+            setIsWinner(true);
         }
     }
+
+    const [winner, setIsWinner] = useState(false);
 
     const [tiles, changeTiles] = useState(PrepareTiles);
 
     return (
+
         <>
             <div className="grid-container" style={containerStyle}>
-                {tiles.map((item, index) => (
+                <TileComponent
+                    tiles={tiles}
+                    findItem={findItem}
+                    checkLocation={checkLocation}
+                    changeTiles={changeTiles}
+                    checkWinn={checkWinn}
+                // handleClick={() => HandleClick}
+                />
+                {/* {tiles.map((item, index) => (
                     item === 0 ? <div id={item} style={tileStyleHidden} key={item} onClick={() => HandleClick(item)}>{item}</div>
                         :
                         <div id={item} style={tileStyle} key={item} onClick={() => HandleClick(item)}>{item}</div>
-                ))}
+                ))} */}
             </div>
             <div style={buttonContainerStyle}>
                 <div style={buttonStyle} onClick={() => Randomize()}>Nytt spel</div>
             </div>
+            {winner ? <div style={GameCompleteStyle}>Game Completed!</div> : ''}
         </>
     )
 }
