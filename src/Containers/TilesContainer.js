@@ -20,7 +20,7 @@ export default function TilesContainer(props) {
     }
 
     const GameCompleteStyle = {
-        margin: "20px 0 0 0"
+        marginTop: "20px"
     }
 
 
@@ -54,9 +54,9 @@ export default function TilesContainer(props) {
         changeTiles(PrepareTiles);
     }
 
-    const findItem = (inp) => {
+    const findItem = (tile) => {
         for (let i = 0; i < tiles.length; i++) {
-            if (tiles[i] === inp) {
+            if (tiles[i] === tile) {
                 return i;
             }
         }
@@ -81,16 +81,11 @@ export default function TilesContainer(props) {
             return true;
         }
         else if (tiles[empty + numberOfColumns] === tiles[clicked]) {
-            if (empty > ((all - numberOfColumns) - 1)) {
-                return false;
-            }
+
             return true;
         }
         else if (tiles[empty - numberOfColumns] === tiles[clicked]) {
             // Check top
-            if (empty < numberOfColumns) {
-                return false;
-            }
             return true;
         }
 
@@ -106,7 +101,7 @@ export default function TilesContainer(props) {
         return ShuffleArray(tiles);
     }
 
-    const checkWinn = (array) => {
+    const checkWin = (array) => {
         let lastItemInArray;
         let newArray = [];
 
@@ -150,13 +145,13 @@ export default function TilesContainer(props) {
                     findItem={findItem}
                     checkLocation={checkLocation}
                     changeTiles={changeTiles}
-                    checkWinn={checkWinn}
+                    checkWin={checkWin}
                 />
             </div>
             <div style={buttonContainerStyle}>
                 <div style={buttonStyle} onClick={() => Randomize()}>Nytt spel</div>
             </div>
-            {winner ? <div style={GameCompleteStyle}>Game Completed!</div> : ''}
+            {winner ? <div style={GameCompleteStyle}><h1>Pusslet är löst!</h1></div> : ''}
         </>
     )
 }

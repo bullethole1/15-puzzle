@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function TileComponent(props) {
 
-    const { tiles, findItem, checkLocation, changeTiles, checkWinn } = props;
+    const { tiles, findItem, checkLocation, changeTiles, checkWin } = props;
 
     const tileStyle = {
         backgroundColor: "#f4a261",
@@ -39,7 +39,7 @@ export default function TileComponent(props) {
             newArray.splice(indexOfEmpty, 0, tile);
             newArray.splice(indexOfClicked, 0, 0);
             changeTiles(newArray);
-            checkWinn(newArray);
+            checkWin(newArray);
 
         }
     }
@@ -49,7 +49,8 @@ export default function TileComponent(props) {
         <>
             {
                 tiles.map((tile) => (
-                    tile === 0 ? <div style={tileStyleHidden} key={tile} onClick={() => HandleClick(tile)}>{tile}</div>
+                    tile === 0 ?
+                        <div style={tileStyleHidden} key={tile} onClick={() => HandleClick(tile)}>{tile}</div>
                         :
                         <div style={tileStyle} key={tile} onClick={() => HandleClick(tile)}>{tile}</div>
                 ))
