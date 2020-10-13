@@ -5,25 +5,6 @@ export default function TilesContainer(props) {
 
     const { numberOfColumns, numberOfRows } = props;
 
-    // const tileStyleHidden = {
-    //     backgroundColor: "#f4a261",
-    //     textAlign: "center",
-    //     padding: "20px 0",
-    //     borderRadius: "5px",
-    //     margin: "2%",
-    //     visibility: "hidden",
-    //     cursor: "pointer"
-    // };
-
-    // const tileStyle = {
-    //     backgroundColor: "#f4a261",
-    //     textAlign: "center",
-    //     padding: "20px 0",
-    //     borderRadius: "5px",
-    //     margin: "2%",
-    //     cursor: "pointer"
-    // };
-
     const buttonContainerStyle = {
         display: "flex",
         justifyContent: "center",
@@ -116,24 +97,6 @@ export default function TilesContainer(props) {
         return false;
     }
 
-    // const HandleClick = (tile) => {
-    //     let indexOfEmpty = findItem(0);
-    //     let indexOfClicked = findItem(tile);
-
-    //     if (checkLocation(indexOfEmpty, indexOfClicked)) {
-    //         let newArray = tiles.filter(x => x !== tile && x !== 0);
-
-    //         if (indexOfEmpty > indexOfClicked) {
-    //             indexOfEmpty -= 1;
-    //         }
-
-    //         newArray.splice(indexOfEmpty, 0, tile);
-    //         newArray.splice(indexOfClicked, 0, 0);
-    //         changeTiles(newArray);
-    //         checkWin(newArray);
-
-    //     }
-    // }
 
     const PrepareTiles = () => {
         let tiles = [];
@@ -189,13 +152,7 @@ export default function TilesContainer(props) {
                     checkLocation={checkLocation}
                     changeTiles={changeTiles}
                     checkWinn={checkWinn}
-                // handleClick={() => HandleClick}
                 />
-                {/* {tiles.map((item, index) => (
-                    item === 0 ? <div id={item} style={tileStyleHidden} key={item} onClick={() => HandleClick(item)}>{item}</div>
-                        :
-                        <div id={item} style={tileStyle} key={item} onClick={() => HandleClick(item)}>{item}</div>
-                ))} */}
             </div>
             <div style={buttonContainerStyle}>
                 <div style={buttonStyle} onClick={() => Randomize()}>Nytt spel</div>
